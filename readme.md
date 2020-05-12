@@ -1,0 +1,1 @@
+The aim of this project to show the relevant stock market information for the company the user searched for. Using API requests and JS.
