@@ -16377,12 +16377,6 @@ function drawChart(label, labels, data) {
                 data: data,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)'
-            },
-            {
-                label: label,
-                data: data,
-                backgroundColor: 'rgba(0, 99, 132, 0.2)',
-                borderColor: 'rgba(0, 99, 132, 1)'
             }]
         },
         options: {
