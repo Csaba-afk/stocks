@@ -16212,6 +16212,14 @@ reloadButton.addEventListener("click", function () {
     location.reload()
 })
 
+document.addEventListener('keypress', function (e) {
+            if (e.keyCode === 13 || e.which === 13) {
+                e.preventDefault();
+                return false;
+            }
+
+        });
+
 submitButton.addEventListener('click', () => {
     let form = document.getElementById("form")
     const symbol = form[0].value.toUpperCase()
