@@ -16206,6 +16206,8 @@
 let submitButton = document.getElementById("search")
 let reloadButton = document.getElementById("reload")
 let switcher = 0
+let counter = 0
+let mainData = {"labels": [], "datasets": []}
 reloadButton.addEventListener("click", function () {
     location.reload()
 })
@@ -16213,14 +16215,13 @@ reloadButton.addEventListener("click", function () {
 submitButton.addEventListener('click', () => {
     let form = document.getElementById("form")
     const symbol = form[0].value.toUpperCase()
+    mainData.datasets[counter] = {"label": symbol}
     getRequest(
         'https://financialmodelingprep.com/api/v3/company/profile/' + symbol,
         drawOutput
     );
 
     function drawOutput(responseText) {
-
-        console.log(JSON.parse(responseText));
 
         let resp = [JSON.parse(responseText).profile];
 
@@ -16342,7 +16343,7 @@ submitButton.addEventListener('click', () => {
     }
 
     getRequest(
-        'https://financialmodelingprep.com/api/v3/historical-price-full/' + symbol + '?from=2015-03-12&to=2019-03-12',
+        'https://financialmodelingprep.com/api/v3/historical-price-full/' + symbol + '?from=2015-03-12&to=2019-05-12',
         apiGet
     );
     let label = symbol;
@@ -16350,9 +16351,6 @@ submitButton.addEventListener('click', () => {
     let data = [];
 
     function apiGet(responseText) {
-
-        console.log(JSON.parse(responseText));
-
         let resp = [JSON.parse(responseText).historical][0];
         for (let i = 0; i < resp.length; i++) {
 
@@ -16360,27 +16358,45 @@ submitButton.addEventListener('click', () => {
             labels.push(financial['label'])
             data.push(parseFloat(financial['close']))
         }
-        drawChart(label, labels, data)
+        mainData.labels = labels
+        mainData.datasets[counter].data = data
+        let red = Math.round(Math.random() * (255));
+        let green = Math.round(Math.random() * (255));
+        let blue = Math.round(Math.random() * (255));
+        let backgroundColor = "rgba(" + String(red) + "," + String(green) + "," + String(blue) + ", 0.2)"
+        let borderColor = "rgba(" + String(red) + "," + String(green) + "," + String(blue) + ", 1)"
+        mainData.datasets[counter].backgroundColor = backgroundColor
+        mainData.datasets[counter].borderColor = borderColor
+        counter += 1
+        console.log(mainData)
+        drawChart(mainData)
     }
 
 
 })
 
-function drawChart(label, labels, data) {
+function drawChart(data) {
+    document.getElementById("myChart").remove()
+    let newCanvas = document.createElement("canvas")
+    newCanvas.id = "myChart"
+    newCanvas.height = 400
+    newCanvas.width = 1200
+    document.getElementById("chartContainer").appendChild(newCanvas)
     let ctx = document.getElementById('myChart').getContext('2d');
     let myLineChart = new Chart(ctx, {
         type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: label,
-                data: data,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)'
-            }]
-        },
+        data: data,
         options: {
-            responsive: false
+            responsive: false,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 0
+            },
+            hover: {
+                animationDuration: 0
+            },
+            responsiveAnimationDuration: 0
         }
     })
+    myLineChart.update();
 }
