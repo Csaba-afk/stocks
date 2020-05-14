@@ -16300,6 +16300,8 @@ submitButton.addEventListener('click', () => {
                         let link = document.createElement("a")
                         link.href = financial[key2]
                         link.innerText = financial[key2]
+                        link.target = "_blank"
+                        link.rel = "noopener noreferrer"
                         eletd.appendChild(link)
                         line.appendChild(eletd)
                     } else {
