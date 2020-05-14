@@ -16292,18 +16292,18 @@ submitButton.addEventListener('click', () => {
             for (let key2 in financial) {
                 if (financial.hasOwnProperty(key2)) {
                     let eletd = document.createElement("td");
-                    eletd.textContent = financial[key2];
                     if (key2 === "volAvg" || key2 === "lastDiv" || key2 === "range" ||
                         key2 === "image" || key2 === "changes" || key2 === "changesPercentage" ||
                         key2 === "exchange" || key2 === "industry") {
                         eletd.textContent = key2;
                     } else if (key2 === "website") {
-                        eletd.addEventListener("click", function () {
-                            window.open(financial[key2])
-                        })
-                        eletd.style.color = "blue"
+                        let link = document.createElement("a")
+                        link.href = financial[key2]
+                        link.innerText = financial[key2]
+                        eletd.appendChild(link)
                         line.appendChild(eletd)
                     } else {
+                        eletd.textContent = financial[key2];
                         line.appendChild(eletd);
                     }
 
