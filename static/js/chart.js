@@ -16213,12 +16213,12 @@ reloadButton.addEventListener("click", function () {
 })
 
 document.addEventListener('keypress', function (e) {
-            if (e.keyCode === 13 || e.which === 13) {
-                e.preventDefault();
-                return false;
-            }
+    if (e.keyCode === 13 || e.which === 13) {
+        e.preventDefault();
+        return false;
+    }
 
-        });
+});
 
 submitButton.addEventListener('click', () => {
     const symbol = document.getElementById("input").value.toUpperCase()
@@ -16407,4 +16407,19 @@ function drawChart(data) {
         }
     })
     myLineChart.update();
+}
+
+let modal = document.getElementById("myModal");
+let btn = document.getElementById("info");
+let span = document.getElementsByClassName("close")[0];
+btn.onclick = function () {
+    modal.style.display = "block";
+}
+span.onclick = function () {
+    modal.style.display = "none";
+}
+window.onclick = function (event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
 }
