@@ -16378,7 +16378,6 @@ submitButton.addEventListener('click', () => {
         mainData.datasets[counter].backgroundColor = backgroundColor
         mainData.datasets[counter].borderColor = borderColor
         counter += 1
-        console.log(mainData)
         drawChart(mainData)
     }
 
