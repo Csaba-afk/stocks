@@ -16221,8 +16221,7 @@ document.addEventListener('keypress', function (e) {
         });
 
 submitButton.addEventListener('click', () => {
-    let form = document.getElementById("form")
-    const symbol = form[0].value.toUpperCase()
+    const symbol = document.getElementById("input").value.toUpperCase()
     mainData.datasets[counter] = {"label": symbol}
     getRequest(
         'https://financialmodelingprep.com/api/v3/company/profile/' + symbol,
@@ -16302,6 +16301,7 @@ submitButton.addEventListener('click', () => {
                         eletd.addEventListener("click", function () {
                             window.open(financial[key2])
                         })
+                        eletd.style.color = "blue"
                         line.appendChild(eletd)
                     } else {
                         line.appendChild(eletd);
@@ -16317,7 +16317,7 @@ submitButton.addEventListener('click', () => {
 
         }
 
-        document.body.appendChild(table);
+        document.getElementById("card-body").appendChild(table);
     }
 
     function getRequest(url, success) {
@@ -16351,7 +16351,7 @@ submitButton.addEventListener('click', () => {
     }
 
     getRequest(
-        'https://financialmodelingprep.com/api/v3/historical-price-full/' + symbol + '?from=2015-03-12&to=2019-05-12',
+        'https://financialmodelingprep.com/api/v3/historical-price-full/' + symbol + '?from=2015-03-12&to=2020-05-13',
         apiGet
     );
     let label = symbol;
@@ -16395,7 +16395,7 @@ function drawChart(data) {
         type: 'line',
         data: data,
         options: {
-            responsive: false,
+            responsive: true,
             maintainAspectRatio: false,
             animation: {
                 duration: 0
